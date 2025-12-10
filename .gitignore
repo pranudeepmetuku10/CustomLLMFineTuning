@@ -181,3 +181,26 @@ frontend/.env.*.local
 credentials/
 config/*.local.yaml
 .env.vault
+ 
+# Test fixtures and sensitive test files
+# Ignore test data, local test envs and common secret filename patterns
+tests/*.json
+tests/*.env
+tests/*.yml
+tests/*.yaml
+tests/*.data
+tests/fixtures/
+tests/code_dataset.json
+.env.test
+.env.*.test
+tests/.env*
+**/*password*
+**/*passwd*
+**/*secret*
+**/*credentials*
+**/*api_key*
+**/*apikey*
+**/*token*
+**/*tokens*
+**/*api-keys*
+*.secret

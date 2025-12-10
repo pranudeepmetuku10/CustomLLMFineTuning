@@ -18,9 +18,8 @@ A multi-tenant MLOps platform for fine-tuning large language models using QLoRA,
 | Fine-Tuning | QLoRA (PEFT + bitsandbytes) |
 | Database | PostgreSQL |
 | API | FastAPI |
-| Orchestration | Apache Airflow |
-| Tracking | MLflow |
-| Data Versioning | DVC |
+| Orchestration | Vertex AI |
+| Tracking | Vertex AI |
 | Monitoring | Prometheus + Grafana |
 
 ## Quick Start
@@ -103,3 +102,4 @@ custom-llm-finetuning-platform/
 ## License
 
 MIT License - See LICENSE file for details.
+

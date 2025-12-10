@@ -1,0 +1,45 @@
+# Database Configuration for Multi-Tenant Platform
+database:
+  # PostgreSQL Connection
+  host: "${DB_HOST:localhost}"
+  port: "${DB_PORT:5432}"
+  name: "${DB_NAME:llm_platform}"
+  user: "${DB_USER:postgres}"
+  password: "${DB_PASSWORD:}"
+  
+  # Connection Pool Settings
+  pool_size: 10
+  max_overflow: 20
+  pool_timeout: 30
+  pool_recycle: 1800
+
+# Storage Configuration
+storage:
+  # Google Cloud Storage Buckets
+  gcs_project: "${GCS_PROJECT:}"
+  datasets_bucket: "${GCS_DATASETS_BUCKET:llm-platform-datasets}"
+  adapters_bucket: "${GCS_ADAPTERS_BUCKET:llm-platform-adapters}"
+  
+  # Local Storage (for development)
+  local_data_dir: "./data"
+  local_adapters_dir: "./adapters"
+
+# Multi-Tenancy Settings
+tenancy:
+  # Isolation mode: "strict" or "shared"
+  isolation_mode: "strict"
+  
+  # Per-user quotas
+  max_datasets_per_user: 10
+  max_adapters_per_user: 5
+  max_storage_gb_per_user: 50
+  
+  # Training quotas
+  max_concurrent_training_jobs: 2
+  max_training_hours_per_month: 100
+
+# Data Versioning (DVC)
+versioning:
+  enabled: true
+  remote_name: "gcs_remote"
+  remote_url: "gs://${GCS_DATASETS_BUCKET}/dvc-cache"

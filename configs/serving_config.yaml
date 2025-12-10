@@ -1,0 +1,54 @@
+# Serving Configuration for Multi-Tenant Inference
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: false  # Set true for development
+
+# Model Serving Settings
+inference:
+  # Base model (shared across all tenants)
+  base_model: "bigcode/starcoder2-3b"
+  device: "cuda"  # cuda, cpu, or auto
+  torch_dtype: "float16"
+  
+  # Generation defaults
+  max_new_tokens: 512
+  temperature: 0.2
+  top_p: 0.95
+  top_k: 50
+  do_sample: true
+  
+  # Batching
+  max_batch_size: 8
+  batch_timeout_ms: 50
+
+# Adapter Management
+adapters:
+  # LRU cache for loaded adapters
+  cache_size: 50
+  
+  # Preload popular adapters
+  preload_on_startup: false
+  
+  # Hot-swap without restart
+  hot_swap_enabled: true
+
+# Rate Limiting (per user)
+rate_limiting:
+  enabled: true
+  requests_per_minute: 60
+  tokens_per_minute: 50000
+
+# CORS Settings
+cors:
+  allow_origins:
+    - "http://localhost:3000"
+    - "http://localhost:5173"
+  allow_methods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "DELETE"
+  allow_headers:
+    - "*"

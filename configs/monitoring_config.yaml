@@ -1,0 +1,75 @@
+# Monitoring Configuration
+metrics:
+  # Prometheus metrics
+  enabled: true
+  port: 9090
+  path: "/metrics"
+
+# Alerting Configuration
+alerting:
+  # Slack notifications
+  slack:
+    enabled: false
+    webhook_url: "${SLACK_WEBHOOK_URL:}"
+    channel: "#llm-platform-alerts"
+  
+  # Email notifications (Gmail SMTP)
+  email:
+    enabled: true
+    smtp_host: "smtp.gmail.com"
+    smtp_port: 587
+    smtp_use_tls: true
+    sender: "mlopsproject25@gmail.com"
+    sender_password: "LLMFineTuning2025"  # Use Gmail App Password
+    recipients:
+      - "mlopsproject25@gmail.com"
+
+# Performance Thresholds
+thresholds:
+  # Latency (milliseconds)
+  latency_p50_warning: 500
+  latency_p95_warning: 2000
+  latency_p99_critical: 5000
+  
+  # Error rates
+  error_rate_warning: 0.01  # 1%
+  error_rate_critical: 0.05  # 5%
+  
+  # GPU utilization
+  gpu_memory_warning: 0.8  # 80%
+  gpu_memory_critical: 0.95  # 95%
+
+# Data Drift Detection
+drift_detection:
+  enabled: true
+  check_interval_hours: 24
+  
+  # Statistical thresholds
+  psi_threshold: 0.2  # Population Stability Index
+  kl_divergence_threshold: 0.1
+  
+  # Trigger retraining
+  auto_retrain_on_drift: false
+
+# Model Performance Monitoring
+model_monitoring:
+  # Track per-user metrics
+  per_tenant_tracking: true
+  
+  # Performance degradation detection
+  baseline_comparison: true
+  degradation_threshold: 0.1  # 10% drop triggers alert
+  
+  # Feedback loop
+  feedback_collection: true
+  min_feedback_samples: 100
+
+# Logging
+logging:
+  level: "INFO"
+  format: "json"
+  output: "stdout"
+  
+  # Request logging
+  log_requests: true
+  log_responses: false  # Privacy - don't log generated code

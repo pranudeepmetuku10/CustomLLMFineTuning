@@ -1,0 +1,85 @@
+# Data Pipeline Configuration
+data_sources:
+  # Primary: The Stack v2
+  the_stack:
+    enabled: true
+    dataset_name: "bigcode/the-stack-v2"
+    streaming: true
+    languages:
+      - "python"
+      - "javascript"
+      - "java"
+      - "cpp"
+      - "go"
+      - "rust"
+    
+  # Custom uploads
+  custom:
+    enabled: true
+    allowed_formats:
+      - ".py"
+      - ".js"
+      - ".ts"
+      - ".java"
+      - ".cpp"
+      - ".c"
+      - ".go"
+      - ".rs"
+    max_file_size_mb: 10
+    max_upload_size_mb: 500
+
+# Preprocessing Pipeline
+preprocessing:
+  # Code cleaning
+  cleaning:
+    remove_comments: false
+    normalize_whitespace: true
+    remove_empty_lines: true
+    max_line_length: 1000
+  
+  # Deduplication
+  deduplication:
+    enabled: true
+    method: "minhash"  # minhash, exact, or simhash
+    similarity_threshold: 0.85
+    num_perm: 128
+  
+  # PII Removal
+  pii_removal:
+    enabled: true
+    patterns:
+      - emails
+      - ip_addresses
+      - api_keys
+      - secrets
+    replacement: "[REDACTED]"
+  
+  # Tokenization
+  tokenization:
+    tokenizer: "bigcode/starcoder2-3b"
+    max_length: 2048
+    truncation: true
+    padding: false
+
+# Schema Validation
+validation:
+  # Great Expectations
+  enabled: true
+  
+  # Required columns for code datasets
+  required_fields:
+    - "content"
+    - "language"
+  
+  # Quality checks
+  checks:
+    - min_content_length: 10
+    - max_content_length: 100000
+    - valid_language: true
+
+# Data Splits
+splits:
+  train: 0.85
+  validation: 0.10
+  test: 0.05
+  seed: 42

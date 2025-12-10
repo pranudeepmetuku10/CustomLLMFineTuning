@@ -1,0 +1,10 @@
+torch>=2.1.0
+transformers>=4.38.0
+datasets>=2.14.0
+peft>=0.7.0
+bitsandbytes>=0.41.0
+accelerate>=0.27.0
+scipy
+google-cloud-storage
+gcsfs
+google-cloud-aiplatform
